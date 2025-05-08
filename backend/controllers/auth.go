@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -60,7 +60,7 @@ func MicrosoftCallback(c *gin.Context) {
 		return
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var tokenResp struct {
 		AccessToken string `json:"access_token"`
 	}
@@ -79,7 +79,7 @@ func MicrosoftCallback(c *gin.Context) {
 		return
 	}
 	defer userResp.Body.Close()
-	userBody, _ := ioutil.ReadAll(userResp.Body)
+	userBody, _ := io.ReadAll(userResp.Body)
 	var msUser struct {
 		ID                string `json:"id"`
 		Mail              string `json:"mail"`
